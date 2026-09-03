@@ -23,7 +23,7 @@
 
     <!-- LEVEL 1 -->
     <section class="screen" id="quizScreen">
-      <div class="level">LEVEL 1 / 3</div>
+      <div class="level">LEVEL 1 / 4</div>
       <div class="card">
         <div class="icon">🧩</div>
         <h2>Birthday Quiz</h2>
@@ -37,9 +37,26 @@
       </div>
     </section>
 
-    <!-- LEVEL 2 -->
+    <!-- MISSION -->
+    <section class="screen" id="missionScreen">
+      <div class="level">MISSION 2 / 4</div>
+      <div class="card">
+        <div class="icon">🔤</div>
+        <h2>Thai Name Mission</h2>
+        <p class="question">How do you spell your name in Thai?</p>
+        <div class="answers">
+          <button class="answer mission-answer">1. เพลียใจ</button>
+          <button class="answer mission-answer">2. เพียงใด</button>
+          <button class="answer mission-answer">3. เสียงใคร</button>
+          <button class="answer mission-answer correct">4. เพียงใจ</button>
+        </div>
+        <p id="missionMessage"></p>
+      </div>
+    </section>
+
+    <!-- LEVEL 3 -->
     <section class="screen" id="collectScreen">
-      <div class="level">LEVEL 2 / 3</div>
+      <div class="level">LEVEL 3 / 4</div>
       <div class="card wide">
         <h2>Collect the Stars of Happiness ⭐</h2>
         <p>Click and collect <strong>10 stars</strong> to continue!</p>
@@ -48,15 +65,17 @@
       </div>
     </section>
 
-    <!-- LEVEL 3 -->
+    <!-- LEVEL 4 -->
     <section class="screen" id="giftPickScreen">
-      <div class="level">LEVEL 3 / 3</div>
+      <div class="level">LEVEL 4 / 4</div>
       <div class="card">
         <h2>Choose a Gift Box 🎁</h2>
         <p>Only one box will lead you to the final surprise...</p>
         <div class="gift-row">
           <button class="gift-box bad">🎁</button>
+          <button class="gift-box bad">🎁</button>
           <button class="gift-box winner">🎁</button>
+          <button class="gift-box bad">🎁</button>
           <button class="gift-box bad">🎁</button>
         </div>
         <p id="giftMessage"></p>
@@ -68,7 +87,7 @@
       <div class="mission">🏆 MISSION COMPLETE! 🏆</div>
       <h2 class="birthday-title">HAPPY BIRTHDAY! 🎂</h2>
       <p class="thai-message">
-        You’ve successfully completed every mission!<br>
+        You’ve successfully completed every mission! 🎉<br>
         And here’s a special surprise just for you. 🎁
       </p>
 
@@ -81,7 +100,7 @@
 
       <div class="gift-card">
         <div class="apple-side">
-          <div class="apple-logo"></div>
+          <div class="apple-logo"> 🍎</div>
           <div>App Store<br>& iTunes</div>
         </div>
         <div class="gift-info">
@@ -89,6 +108,7 @@
           <h3>Apple Gift Card</h3>
           <div id="codeBox" class="code hidden-code">XXXX-XXXX-XXXX-XXXX</div>
           <button class="small-btn" id="revealBtn">OPEN YOUR GIFT 🎁</button>
+          <button class="small-btn copy-btn" id="copyBtn" disabled>COPY CODE</button>
           <p class="enjoy">Enjoy your gift! ✨</p>
         </div>
       </div>

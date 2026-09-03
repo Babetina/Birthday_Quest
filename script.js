@@ -11,17 +11,30 @@ function show(id){
 
 document.getElementById("startBtn").onclick=()=>show("quizScreen");
 
-document.querySelectorAll(".answer").forEach(btn=>{
+document.querySelectorAll("#quizScreen .answer").forEach(btn=>{
   btn.onclick=()=>{
     const msg=document.getElementById("quizMessage");
     if(btn.classList.contains("correct")){
       msg.textContent="Correct! 🎉 Let’s move on!";
       burst(innerWidth/2,innerHeight/2,70);
-      setTimeout(()=>show("collectScreen"),900);
+      setTimeout(()=>show("missionScreen"),900);
     }else{
       msg.textContent="Haha, not quite! Try again 😝";
     }
   }
+});
+
+document.querySelectorAll("#missionScreen .answer").forEach(btn=>{
+  btn.onclick=()=>{
+    const msg=document.getElementById("missionMessage");
+    if(btn.classList.contains("correct")){
+      msg.textContent="Correct! 🎉 Let’s continue the quest!";
+      burst(innerWidth/2,innerHeight/2,70);
+      setTimeout(()=>show("collectScreen"),900);
+    }else{
+      msg.textContent="Not quite! Try again 😝";
+    }
+  };
 });
 
 let score=0;
@@ -33,10 +46,12 @@ function spawnStar(){
   s.className="star";s.textContent="⭐";
   s.style.left=Math.random()*82+5+"%";
   s.style.top=Math.random()*78+5+"%";
+  s.style.setProperty("--move-x",`${Math.random()*120-60}px`);
+  s.style.setProperty("--move-y",`${Math.random()*120-60}px`);
   s.onclick=()=>{
     score++; scoreEl.textContent=`⭐ ${score} / 10`;
-    burst(area.getBoundingClientRect().left+parseFloat(s.style.left)/100*area.clientWidth,
-          area.getBoundingClientRect().top+parseFloat(s.style.top)/100*area.clientHeight,25);
+    const starBounds=s.getBoundingClientRect();
+    burst(starBounds.left+starBounds.width/2,starBounds.top+starBounds.height/2,25);
     s.remove();
     if(score>=10){
       setTimeout(()=>show("giftPickScreen"),700);
@@ -57,7 +72,12 @@ document.querySelectorAll(".gift-box").forEach(box=>{
       burst(innerWidth/2,innerHeight/2,100);
       setTimeout(finalScene,800);
     }else{
-      msg.textContent="Not this one! Try another box 👀";
+      const wrongMessages=[
+        "This box isn't the right one. Try another box 👀",
+        "Not this box yet! Choose another one 🎁",
+        "Almost! This isn't the correct box ✨"
+      ];
+      msg.textContent=wrongMessages[Math.floor(Math.random()*wrongMessages.length)];
       box.style.transform="rotate(12deg)";
     }
   }
@@ -74,18 +94,32 @@ function finalScene(){
 document.getElementById("revealBtn").onclick=()=>{
   const code=document.getElementById("codeBox");
   // แก้ไขโค้ดจริงของคุณตรงนี้ได้
-  code.textContent="YOUR-APPLE-GIFT-CODE";
+  code.textContent="XNZCHLYHDFXD2HNG";
   code.style.color="#ffd66b";
   document.getElementById("revealBtn").textContent="OPENED! 🎉";
+  document.getElementById("copyBtn").disabled=false;
   burst(innerWidth/2,innerHeight*.65,140);
+};
+
+document.getElementById("copyBtn").onclick=async()=>{
+  const code=document.getElementById("codeBox").textContent;
+  try{
+    await navigator.clipboard.writeText(code);
+    document.getElementById("copyBtn").textContent="COPIED! ✓";
+  }catch(e){
+    document.getElementById("copyBtn").textContent="COPY FAILED";
+  }
 };
 
 document.getElementById("replayBtn").onclick=()=>{
   fireworks=false; score=0; scoreEl.textContent="⭐ 0 / 10"; area.innerHTML="";
   document.getElementById("quizMessage").textContent="";
+  document.getElementById("missionMessage").textContent="";
   document.getElementById("giftMessage").textContent="";
   document.getElementById("codeBox").textContent="XXXX-XXXX-XXXX-XXXX";
   document.getElementById("revealBtn").textContent="OPEN YOUR GIFT 🎁";
+  document.getElementById("copyBtn").textContent="COPY CODE";
+  document.getElementById("copyBtn").disabled=true;
   show("startScreen");
 };
 
