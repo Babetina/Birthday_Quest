@@ -35,9 +35,9 @@ body:before{
 .pixel-stars{color:var(--yellow);font-family:"Press Start 2P";font-size:20px;letter-spacing:8px;margin-bottom:18px}
 .trophy{font-size:72px;filter:drop-shadow(0 0 25px #ffbf3f)}
 .eyebrow,.level,.special-label{
-  font-family:"Press Start 2P";font-size:12px;color:#ffd66b;letter-spacing:1px
+  font-family:"Press Start 2P";font-size:30px;color:#ffd66b;letter-spacing:1px
 }
-.level{transform:translateY(-8px)}
+.level{font-size:clamp(26px,5vw,38px);line-height:1.2;transform:translateY(-8px)}
 h1{
   font-family:"Chakra Petch",sans-serif;font-weight:700;
   font-size:clamp(38px,8vw,78px);line-height:1.05;margin:18px 0;
@@ -69,6 +69,17 @@ h1 span{color:#ff78bc}
   font-family:"Mitr",sans-serif;font-size:18px;cursor:pointer;transition:.15s
 }
 .answer:hover{background:#5c318d;transform:scale(1.02)}
+.answer-correct{animation:answerCorrect .55s ease}
+.answer-wrong{animation:answerWrong .45s ease}
+@keyframes answerCorrect{
+  0%,100%{transform:scale(1);border-color:#8c59cb;box-shadow:none}
+  45%{transform:scale(1.05);border-color:#77f39b;box-shadow:0 0 24px rgba(119,243,155,.8)}
+}
+@keyframes answerWrong{
+  0%,100%{transform:translateX(0);border-color:#8c59cb}
+  25%{transform:translateX(-9px);border-color:#ff6b8a;box-shadow:0 0 18px rgba(255,107,138,.65)}
+  75%{transform:translateX(9px);border-color:#ff6b8a;box-shadow:0 0 18px rgba(255,107,138,.65)}
+}
 #quizMessage,#giftMessage{min-height:28px;font-weight:700;color:#ffd36a;margin-top:18px}
 
 #score{font-family:"Press Start 2P";color:#ffd35e;margin:18px;font-size:14px}
@@ -86,13 +97,26 @@ h1 span{color:#ff78bc}
   100%{transform:translate(calc(var(--move-x) * -1),calc(var(--move-y) * -1)) rotate(-8deg)}
 }
 
-.gift-row{display:flex;justify-content:center;gap:25px;margin:30px 0}
+.gift-row{display:flex;justify-content:center;gap:clamp(4px,2vw,16px);width:100%;margin:30px 0}
 .gift-box{
-  font-size:clamp(70px,13vw,120px);background:transparent;border:0;cursor:pointer;
+  flex:1 1 0;min-width:0;width:100%;font-size:clamp(70px,13vw,120px);background:transparent;border:0;cursor:pointer;
   transition:.2s;filter:drop-shadow(0 10px 10px rgba(0,0,0,.4));animation:giftFloat 1.8s ease-in-out infinite alternate
 }
 @keyframes giftFloat{from{transform:translateY(0) rotate(-3deg)}to{transform:translateY(-12px) rotate(3deg)}}
 .gift-box:hover{transform:translateY(-12px) rotate(-5deg) scale(1.08)}
+.gift-empty{filter:grayscale(.65) drop-shadow(0 8px 8px rgba(0,0,0,.35))}
+.gift-wrong{animation:giftWrong .55s ease}
+.gift-correct{animation:giftCorrect .65s ease}
+@keyframes giftWrong{
+  0%,100%{transform:rotate(0) scale(1)}
+  25%{transform:rotate(-12deg) scale(.92)}
+  50%{transform:rotate(12deg) scale(.92)}
+  75%{transform:rotate(-7deg) scale(.96)}
+}
+@keyframes giftCorrect{
+  0%,100%{transform:scale(1) translateY(0)}
+  45%{transform:scale(1.2) translateY(-18px);filter:drop-shadow(0 0 22px #ffd15c)}
+}
 
 .mission{
   display:inline-block;font-family:"Press Start 2P";font-size:clamp(14px,3vw,22px);
@@ -135,7 +159,7 @@ h1 span{color:#ff78bc}
 .copy-btn{margin-top:10px;background:linear-gradient(180deg,#7d6cff,#5140c9);box-shadow:0 7px 0 #2f247d,0 0 25px #7d6cff}
 .copy-btn:disabled{opacity:.45;cursor:not-allowed;filter:none;transform:none}
 .enjoy{color:#ffd36b}
-.final-message{font-size:19px;line-height:1.75;margin:28px auto;max-width:700px}
+.final-message{font-size:30px;line-height:1.75;margin:28px auto;max-width:700px}
 .replay{margin-bottom:20px}
 #toast{
   position:fixed;left:50%;bottom:25px;transform:translateX(-50%) translateY(100px);
@@ -143,13 +167,33 @@ h1 span{color:#ff78bc}
   transition:.3s;z-index:30
 }
 #toast.show{transform:translateX(-50%) translateY(0)}
+.music-control{
+  position:fixed;right:18px;bottom:18px;z-index:25;display:flex;align-items:center;
+  padding:4px;background:rgba(24,12,48,.92);border:2px solid #b950e5;border-radius:12px;
+  box-shadow:0 8px 25px rgba(0,0,0,.35);font-family:"Press Start 2P";font-size:9px;color:#ffd66b
+}
+.music-options{display:none;align-items:center;gap:8px;padding:6px 8px 6px 4px}
+.music-control.expanded .music-options{display:flex}
+.sound-toggle{
+  padding:7px 8px;border:1px solid #ffd7ef;border-radius:5px;background:#4b276e;color:#fff;
+  font:700 8px "Press Start 2P",sans-serif;cursor:pointer;white-space:nowrap
+}
+.sound-toggle[aria-pressed="true"]{background:#7b315e;color:#ffc1df;opacity:.8}
+.music-panel-toggle{
+  width:38px;height:38px;padding:0;border:2px solid #ffd7ef;border-radius:7px;background:#c72f84;
+  color:#fff;font:700 18px "Chakra Petch",sans-serif;cursor:pointer
+}
+.music-panel-toggle{box-shadow:0 0 12px rgba(255,79,163,.55)}
+.music-control input{width:100px;accent-color:#ff70b7;cursor:pointer}
 
 @media(max-width:650px){
   #game{padding:14px}
   .card{padding:28px 16px}
   .gift-card{grid-template-columns:1fr}
   .apple-side{min-height:180px}
-  .gift-row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0}
-  .gift-box{font-size:clamp(42px,14vw,70px);padding:0}
+  .gift-row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px}
+  .gift-box{font-size:clamp(36px,12vw,58px);padding:0}
   .thai-message,.subtitle{font-size:17px}
+  .music-control{right:10px;bottom:10px}
+  .music-control input{width:80px}
 }

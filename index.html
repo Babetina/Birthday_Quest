@@ -59,8 +59,8 @@
       <div class="level">LEVEL 3 / 4</div>
       <div class="card wide">
         <h2>Collect the Stars of Happiness ⭐</h2>
-        <p>Click and collect <strong>10 stars</strong> to continue!</p>
-        <div id="score">⭐ 0 / 10</div>
+        <p>Click and collect <strong>17 stars</strong> to continue!</p>
+        <div id="score">⭐ 0 / 17</div>
         <div id="playArea"></div>
       </div>
     </section>
@@ -122,6 +122,16 @@
       <button class="pixel-btn replay" id="replayBtn">PLAY AGAIN ↻</button>
     </section>
   </div>
+
+  <aside class="music-control" aria-label="Music controls">
+    <button id="musicToggle" class="music-panel-toggle" type="button" aria-expanded="false" aria-label="Show music controls">♫</button>
+    <div class="music-options">
+      <button id="musicMute" class="sound-toggle" type="button" aria-pressed="false">♫ MUSIC</button>
+      <button id="effectsMute" class="sound-toggle" type="button" aria-pressed="false">✦ FX</button>
+      <label for="volumeControl">Volume</label>
+      <input id="volumeControl" type="range" min="0" max="100" value="35" aria-label="Music volume" />
+    </div>
+  </aside>
 
   <div id="toast"></div>
   <script src="script.js"></script>
